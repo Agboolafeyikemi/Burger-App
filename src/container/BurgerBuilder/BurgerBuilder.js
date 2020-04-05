@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import Aux from "../../hoc/Aux/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
@@ -50,50 +51,19 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    this.setState({
-      loading: true
-    });
-
-    // const order = {
-    //   ingredients: this.state.ingredients,
-    //   price: this.state.totalPrice,
-    //   customerData: {
-    //     name: "feyikemi",
-    //     address: {
-    //       street: "GRA Estate",
-    //       zipCode: "404040",
-    //       country: "Nigeria"
-    //     },
-
-    //     email: "agboolafeyikemi93.gmail.com"
-    //   },
-
-    //   deliveryMethod: "fastest"
-    // };
-
-    // axios
-    //   .post("/orders.json", order)
-    //   .then(res =>
-    //     this.setState({
-    //       loading: false,
-    //       purchasing: false
-    //     })
-    //   )
-
-    //   .catch(err =>
-    //     this.setState({
-    //       loading: false,
-    //       purchasing: false
-    //     })
-    //   );
     const queryParams = [];
-    for(let i in this.state.ingredients){
-      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
+    for (let i in this.state.ingredients) {
+      queryParams.push(
+        encodeURIComponent(i) +
+          "=" +
+          encodeURIComponent(this.state.ingredients[i])
+      );
     }
-    const queryString = queryParams.join('&');
+    queryParams.push("price=" + this.state.totalPrice);
+    const queryString = queryParams.join("&");
     this.props.history.push({
-      pathname: '/checkout',
-      search: '?' + queryString
+      pathname: "/checkout",
+      search: "?" + queryString
     });
   };
 
@@ -200,4 +170,4 @@ class BurgerBuilder extends Component {
     );
   }
 }
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);
