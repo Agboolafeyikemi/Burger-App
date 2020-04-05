@@ -54,38 +54,47 @@ class BurgerBuilder extends Component {
       loading: true
     });
 
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customerData: {
-        name: "feyikemi",
-        address: {
-          street: "GRA Estate",
-          zipCode: "404040",
-          country: "Nigeria"
-        },
+    // const order = {
+    //   ingredients: this.state.ingredients,
+    //   price: this.state.totalPrice,
+    //   customerData: {
+    //     name: "feyikemi",
+    //     address: {
+    //       street: "GRA Estate",
+    //       zipCode: "404040",
+    //       country: "Nigeria"
+    //     },
 
-        email: "agboolafeyikemi93.gmail.com"
-      },
+    //     email: "agboolafeyikemi93.gmail.com"
+    //   },
 
-      deliveryMethod: "fastest"
-    };
+    //   deliveryMethod: "fastest"
+    // };
 
-    axios
-      .post("/orders.json", order)
-      .then(res =>
-        this.setState({
-          loading: false,
-          purchasing: false
-        })
-      )
+    // axios
+    //   .post("/orders.json", order)
+    //   .then(res =>
+    //     this.setState({
+    //       loading: false,
+    //       purchasing: false
+    //     })
+    //   )
 
-      .catch(err =>
-        this.setState({
-          loading: false,
-          purchasing: false
-        })
-      );
+    //   .catch(err =>
+    //     this.setState({
+    //       loading: false,
+    //       purchasing: false
+    //     })
+    //   );
+    const queryParams = [];
+    for(let i in this.state.ingredients){
+      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
+    }
+    const queryString = queryParams.join('&');
+    this.props.history.push({
+      pathname: '/checkout',
+      search: '?' + queryString
+    });
   };
 
   updatedPurchaseHandler = ingredients => {
@@ -191,4 +200,4 @@ class BurgerBuilder extends Component {
     );
   }
 }
-export default withErrorHandler(BurgerBuilder, axios);
+export default BurgerBuilder;
