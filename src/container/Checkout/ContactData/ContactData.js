@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import Button from "../../../components/UI/Button/Button";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 
@@ -91,7 +93,7 @@ class ContactData extends Component {
         },
         value: "",
         validation: {},
-        valid: true,
+        valid: true
       }
     },
     formValid: false,
@@ -110,7 +112,7 @@ class ContactData extends Component {
       ].value;
     }
     const order = {
-      ingredients: this.props.ingredients,
+      ingredients: this.props.ing,
       price: this.props.price,
       formData: formData
     };
@@ -205,4 +207,10 @@ class ContactData extends Component {
     );
   }
 }
-export default ContactData;
+const mapStateToProps = state => {
+  return {
+    ing: state.ingredients,
+    price: state.toTalPrice
+  };
+};
+export default connect(mapStateToProps)(ContactData);
