@@ -21,16 +21,22 @@ export const authFail = error => {
     error: error
   };
 };
-export const logOut =() => {
+export const logout = () => {
   return{
     type:actionTypes.AUTH_LOGOUT
+  }
+} 
+export const setAuthRedirectPath = (path) => {
+  return{
+    type:actionTypes.SET_AUTH_REDIRECT_PATH,
+    path: path
   }
 } 
 
 export const checkAuthTimeout = (expireTime) => {
   return dispatch=> {
     setTimeout(() => {
-     dispatch(logOut())
+     dispatch(logout())
     }, expireTime * 1000);
   }
 }
