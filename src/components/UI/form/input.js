@@ -6,7 +6,6 @@ const input = props => {
   const inputClasses = [classes.InputElement];
 
   if (props.inValid && props.shouldValidate && props.touched) {
-    console.log("object", inputClasses.join(" "));
     inputClasses.push(classes.Invalid);
   }
   let validatorError = null;
